@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: journey
+      POSTGRES_USER: journey
+      POSTGRES_PASSWORD: journey
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U journey"]
+      interval: 2s
+      retries: 15
+  
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_HOST: db
+      DJANGO_DEBUG: "0"
+    depends_on:
+      db:
+        condition: service_healthy
