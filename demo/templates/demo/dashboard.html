@@ -1,0 +1,25 @@
+<h1>Sample stats (100k rows)</h1>
+<p><b>rendered at: {{ rendered_at|time:"H:i:s.u" }}</b></p>
+<table border="1">
+    <tr>
+        <th>Category</th>
+        <th>Count</th>
+        <th>Avg</th>
+        <th>Max</th>
+    </tr>
+    {% for s in stats %}
+    <tr>
+        <td>{{ s.category }}</td>
+        <td>{{ s.n }}</td>
+        <td>{{ s.avg|floatformat:2 }}</td>
+        <td>{{ s.max|floatformat:2 }}</td>
+    </tr>
+    {% endfor %}
+
+    <h2>5 random rows</h2>
+    <ul>
+        {% for r in randoms %}
+        <li>{{r.category}} - {{r.value|floatformat:2}}</li>
+        {% endfor %}
+    </ul>
+</table>
